@@ -156,12 +156,19 @@ function responderComando(comando) {
     }
 }
 
-// --- FUNCIÓN DE REDIRECCIÓN EN MÓVILES ---
+// --- FUNCIÓN DE REDIRECCIÓN EN MÓVILES (RENOVADA ANTI-BLOQUEO) ---
 function redirigir(url) {
-    // En móviles, abrir pestañas de fondo rompe la app. 
-    // Esperamos 2 segundos a que Jarvis termine de hablar y cambiamos la web actual para que no falle.
+    // Esperamos 2.2 segundos a que Jarvis termine de hablar de forma fluida
     setTimeout(() => {
-        window.location.href = url;
+        // Creamos un elemento de enlace dinámico invisible
+        const enlaceFake = document.createElement('a');
+        enlaceFake.href = url;
+        enlaceFake.target = '_self'; // Fuerza a ejecutarse en la ventana actual sin ventanas emergentes
+        
+        // Lo inyectamos temporalmente en el documento, simulamos el clic físico y lo destruimos
+        document.body.appendChild(enlaceFake);
+        enlaceFake.click();
+        document.body.removeChild(enlaceFake);
     }, 2200);
 }
 
