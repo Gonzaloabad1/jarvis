@@ -9,7 +9,7 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": "/",
+  "start_url": "./index.html",
   "background_color": "#0d1a26",
   "theme_color": "#00f3ff",
   "display": "standalone",
