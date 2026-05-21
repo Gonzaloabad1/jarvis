@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS AI</title>
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <meta name="theme-color" content="#00f3ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+
+    <div class="jarvis-container">
+        <div class="arc-reactor" id="arcReactor">
+            <div class="ring-outer"></div>
+            <div class="ring-middle"></div>
+            <div class="ring-inner"></div>
+            <div class="inner-circle">
+                <span class="jarvis-text">J.A.R.V.I.S</span>
+            </div>
+        </div>
+        
+        <h1 id="status-text">SISTEMA APAGADO</h1>
+        <p id="speech-result">Haga un clic en la pantalla para otorgar permisos de micrófono...</p>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log("Protocolo J.A.R.V.I.S. de aplicación activado."))
+                .catch((err) => console.log("Error al activar protocolo de la app:", err));
+        }
+    </script>
+    
+</body>
+</html>

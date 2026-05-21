@@ -1,0 +1,153 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0d1a26;
+    background-image: 
+        linear-gradient(0deg, transparent 24%, rgba(0, 243, 255, 0.05) 25%, rgba(0, 243, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 243, 255, 0.05) 75%, rgba(0, 243, 255, 0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(0, 243, 255, 0.05) 25%, rgba(0, 243, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 243, 255, 0.05) 75%, rgba(0, 243, 255, 0.05) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.jarvis-container {
+    text-align: center;
+}
+
+/* Contenedor Principal del Reactor */
+.arc-reactor {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    margin: 0 auto 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 0 100px rgba(0, 243, 255, 0.1), inset 0 0 60px rgba(0, 243, 255, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.arc-reactor:active {
+    transform: scale(0.96);
+}
+
+/* 1. ANILLO EXTERIOR */
+.ring-outer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px double rgba(0, 243, 255, 0.6);
+    border-left-color: transparent;
+    border-right-color: transparent;
+    box-shadow: 0 0 40px rgba(0, 243, 255, 0.2);
+    animation: rotateClockwise 25s linear infinite;
+}
+
+/* 2. ANILLO INTERMEDIO */
+.ring-middle {
+    position: absolute;
+    width: 82%;
+    height: 82%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(20, 40, 60, 0.7) 0%, rgba(10, 20, 30, 0.9) 70%, #0d1a26 100%);
+    border: 2px dashed rgba(0, 243, 255, 0.7);
+    animation: rotateCounterClockwise 18s linear infinite;
+}
+.ring-middle::before {
+    content: '';
+    position: absolute;
+    top: 5px; left: 5px; right: 5px; bottom: 5px;
+    border-radius: 50%;
+    border: 3px dotted rgba(0, 243, 255, 0.3);
+}
+
+/* 3. ANILLO INTERNO */
+.ring-inner {
+    position: absolute;
+    width: 66%;
+    height: 66%;
+    border-radius: 50%;
+    border: 5px dashed rgba(0, 243, 255, 0.8);
+    border-bottom-color: transparent;
+    animation: rotateClockwise 10s linear infinite;
+}
+
+/* 4. NÚCLEO CENTRAL */
+.inner-circle {
+    width: 48%;
+    height: 48%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(0, 243, 255, 0.85) 45%, #0d1a26 100%);
+    border: 2px solid #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 50px #00f3ff, inset 0 0 25px #00f3ff;
+    z-index: 5;
+    animation: pulseCore 1.5s infinite alternate;
+}
+
+.jarvis-text {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-shadow: 0 0 12px #000000, 0 0 8px rgba(0, 243, 255, 1);
+    font-family: 'Arial Black', Gadget, sans-serif;
+}
+
+/* --- ANIMACIONES CUANDO J.A.R.V.I.S SE ACTIVA --- */
+.arc-reactor.active .ring-outer {
+    animation: rotateClockwise 4s linear infinite;
+    border-color: rgba(0, 243, 255, 1);
+}
+
+.arc-reactor.active .ring-middle {
+    animation: rotateCounterClockwise 3s linear infinite;
+}
+
+.arc-reactor.active .ring-inner {
+    animation: rotateClockwise 2s linear infinite;
+}
+
+.arc-reactor.active .inner-circle {
+    animation: pulseCore 0.5s infinite alternate;
+}
+
+/* Textos informativos inferiores */
+h1 {
+    font-size: 1.6rem;
+    letter-spacing: 5px;
+    color: #00f3ff;
+    text-shadow: 0 0 15px rgba(0, 243, 255, 0.8);
+    margin-top: 15px;
+}
+
+p {
+    color: #648ca8;
+    font-size: 0.95rem;
+}
+
+/* --- KEYFRAMES DE GIRO --- */
+@keyframes rotateClockwise {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotateCounterClockwise {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+@keyframes pulseCore {
+    0% { transform: scale(1); box-shadow: 0 0 40px #00f3ff, inset 0 0 20px #00f3ff; }
+    100% { transform: scale(1.03); box-shadow: 0 0 60px #00f3ff, inset 0 0 30px #00f3ff; }
+}
