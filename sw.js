@@ -1,16 +1,13 @@
-const CACHE_NAME = 'jarvis-v2'; // <-- Cambiado de v1 a v2
+const CACHE_NAME = 'jarvis-v3'; // Subimos a v3 para forzar al móvil a borrar el error viejo
 const ASSETS = [
   '/',
   '/index.html',
   '/style.css',
   '/script.js',
   '/manifest.json',
-  '/img/reactor.png'
+  '/img/images.jpg' // <-- Corregido para que coincida con el Manifest
 ];
 
-// El resto del código de tu sw.js se queda exactamente igual...
-
-// Instalar el Service Worker y guardar en caché los archivos básicos
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -19,7 +16,6 @@ self.addEventListener('install', (e) => {
   );
 });
 
-// Activar y limpiar cachés antiguas
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) => {
@@ -34,7 +30,6 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// Responder desde la caché si no hay internet (Opcional, pero obligatorio para PWA)
 self.addEventListener('fetch', (e) => {
   e.respondWith(
     fetch(e.request).catch(() => caches.match(e.request))
