@@ -122,26 +122,37 @@ function responderComando(comando) {
         redirigir('https://youtube.com');
     }
     
-    // 3. NUEVOS COMANDOS PARA APPS MÓVILES (Enlaces profundos)
+    // 3. NUEVOS COMANDOS PARA APPS MÓVILES Y PC (Enlaces dinámicos)
     else if (comando.includes('abre whatsapp')) {
         hablar("Abriendo su servicio de mensajería, Señor.");
-        redirigir('whatsapp://'); 
+        
+        // DETECTOR INTELIGENTE DE WHATSAPP
+        const esMovil = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (esMovil) {
+            redirigir('whatsapp://'); // Abre la App nativa en móviles
+        } else {
+            redirigir('https://web.whatsapp.com'); // Abre WhatsApp Web en ordenadores
+        }
     }
     else if (comando.includes('abre facebook')) {
         hablar("Conectando con la red social, Señor.");
-        redirigir('fb://'); 
+        const esMovil = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        redirigir(esMovil ? 'fb://' : 'https://facebook.com'); 
     }
     else if (comando.includes('abre instagram')) {
         hablar("Desplegando el feed de Instagram.");
-        redirigir('instagram://');
+        const esMovil = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        redirigir(esMovil ? 'instagram://' : 'https://instagram.com');
     }
     else if (comando.includes('abre twitter') || comando.includes('abre x')) {
         hablar("Abriendo la red de microblogging.");
-        redirigir('twitter://');
+        const esMovil = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        redirigir(esMovil ? 'twitter://' : 'https://x.com');
     }
     else if (comando.includes('abre spotify')) {
         hablar("Iniciando su reproductor de música, Señor.");
-        redirigir('spotify://');
+        const esMovil = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        redirigir(esMovil ? 'spotify://' : 'https://open.spotify.com');
     }
 
     // 4. Comando de Apagado Visual
@@ -163,7 +174,17 @@ function redirigir(url) {
         // Creamos un elemento de enlace dinámico invisible
         const enlaceFake = document.createElement('a');
         enlaceFake.href = url;
-        enlaceFake.target = '_self'; // Fuerza a ejecutarse en la ventana actual sin ventanas emergentes
+        
+        // Si es una URL web normal (HTTP/HTTPS) en PC, la abrimos en pestaña nueva para no pisar a Jarvis.
+        // Si es un protocolo de app (whatsapp://) o estamos en móvil, lo abrimos en la misma pantalla.
+        const esWebNormal = url.startsWith('http');
+        const esMovil = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        
+        if (esWebNormal && !esMovil) {
+            enlaceFake.target = '_blank'; // Abre pestaña nueva en ordenadores para webs
+        } else {
+            enlaceFake.target = '_self';  // Abre app o redirige en móviles
+        }
         
         // Lo inyectamos temporalmente en el documento, simulamos el clic físico y lo destruimos
         document.body.appendChild(enlaceFake);
