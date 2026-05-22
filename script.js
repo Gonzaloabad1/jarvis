@@ -154,6 +154,17 @@ function responderComando(comando) {
         const esMovil = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
         redirigir(esMovil ? 'spotify://' : 'https://open.spotify.com');
     }
+    else if (comando.includes('abre contactos') || comando.includes('agenda')) {
+        hablar("Desplegando su agenda de contactos, Señor.");
+        
+        const esMovil = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (esMovil) {
+            redirigir('tel:'); // Abre la app de teléfono/contactos nativa en el móvil
+        } else {
+            // En PC, al no tener agenda telefónica nativa por web, le podemos abrir los contactos de Google
+            redirigir('https://contacts.google.com'); 
+        }
+    }
 
     // 4. Comando de Apagado Visual
     else if (comando.includes('descansa') || comando.includes('silencio') || comando.includes('adiós')) {
