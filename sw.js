@@ -1,11 +1,14 @@
-const CACHE_NAME = 'jarvis-v1';
+const CACHE_NAME = 'jarvis-v2'; // <-- Cambiado de v1 a v2
 const ASSETS = [
   '/',
   '/index.html',
   '/style.css',
   '/script.js',
-  '/manifest.json'
+  '/manifest.json',
+  '/img/reactor.png'
 ];
+
+// El resto del código de tu sw.js se queda exactamente igual...
 
 // Instalar el Service Worker y guardar en caché los archivos básicos
 self.addEventListener('install', (e) => {
