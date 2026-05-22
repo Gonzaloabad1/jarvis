@@ -1,6 +1,7 @@
 // Compatibilidad del motor de voz entre navegadores
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition = null;
+
 if (SpeechRecognition) {
     recognition = new SpeechRecognition();
     recognition.lang = 'es-ES';
